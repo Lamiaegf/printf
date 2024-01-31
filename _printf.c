@@ -27,39 +27,39 @@ void cleanup(va_list args, buffer_t *output)
  */
 int run_printf(const char *format, va_list args, buffer_t *output)
 {
-	int i, wid, prec, ret = 0;
+	int j, wid, prec, ret = 0;
 	char tmp;
 	unsigned char flags, len;
 	unsigned int (*f)(va_list, buffer_t *,
 			unsigned char, int, int, unsigned char);
 
-	for (i = 0; *(format + i); i++)
+	for (j = 0; *(format + j); j++)
 	{
 		len = 0;
-		if (*(format + i) == '%')
+		if (*(format + j) == '%')
 		{
 			tmp = 0;
-			flags = handle_flags(format + i + 1, &tmp);
-			wid = handle_width(args, format + i + tmp + 1, &tmp);
-			prec = handle_precision(args, format + i + tmp + 1,
+			flags = handle_flags(format + j + 1, &tmp);
+			wid = handle_width(args, format + j + tmp + 1, &tmp);
+			prec = handle_precision(args, format + j + tmp + 1,
 					&tmp);
-			len = handle_length(format + i + tmp + 1, &tmp);
+			len = handle_length(format + j + tmp + 1, &tmp);
 
-			f = handle_specifiers(format + i + tmp + 1);
+			f = handle_specifiers(format + j + tmp + 1);
 			if (f != NULL)
 			{
-				i += tmp + 1;
+				j += tmp + 1;
 				ret += f(args, output, flags, wid, prec, len);
 				continue;
 			}
-			else if (*(format + i + tmp + 1) == '\0')
+			else if (*(format + j + tmp + 1) == '\0')
 			{
 				ret = -1;
 				break;
 			}
 		}
-		ret += _memcpy(output, (format + i), 1);
-		i += (len != 0) ? 1 : 0;
+		ret += _memcpy(output, (format + j), 1);
+		j += (len != 0) ? 1 : 0;
 	}
 	cleanup(args, output);
 	return (ret);

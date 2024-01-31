@@ -121,7 +121,7 @@ unsigned int convert_r(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char *str, *null = "(null)";
-	int size, end, i;
+	int sz, end, i;
 	unsigned int ret = 0;
 
 	(void)flags;
@@ -131,13 +131,13 @@ unsigned int convert_r(va_list args, buffer_t *output,
 	if (str == NULL)
 		return (_memcpy(output, null, 6));
 
-	for (size = 0; *(str + size);)
-		size++;
+	for (sz = 0; *(str + sz);)
+		sz++;
 
-	ret += print_string_width(output, flags, wid, prec, size);
+	ret += print_string_width(output, flags, wid, prec, sz);
 
-	end = size - 1;
-	prec = (prec == -1) ? size : prec;
+	end = sz - 1;
+	prec = (prec == -1) ? sz : prec;
 	for (i = 0; end >= 0 && i < prec; i++)
 	{
 		ret += _memcpy(output, (str + end), 1);

@@ -1,10 +1,10 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <unistd.h>
 #include <limits.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 /* Flag Modifier Macros */
 #define PLUS 1
@@ -96,7 +96,7 @@ int handle_precision(va_list args, const char *modifier, char *index);
 unsigned int (*handle_specifiers(const char *specifier))(va_list, buffer_t *,
 		unsigned char, int, int, unsigned char);
 
-/* Modifiers */
+/* Modfrs */
 unsigned int print_width(buffer_t *output, unsigned int printed,
 		unsigned char flags, int wid);
 unsigned int print_string_width(buffer_t *output,
@@ -113,4 +113,4 @@ unsigned int convert_sbase(buffer_t *output, long int num, char *base,
 unsigned int convert_ubase(buffer_t *output, unsigned long int num, char *base,
 		unsigned char flags, int wid, int prec);
 
-#endif /* HOLBERTON_H */
+#endif /* MAIN_H */

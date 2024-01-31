@@ -22,15 +22,15 @@ unsigned int convert_ubase(buffer_t *output,
 unsigned int convert_sbase(buffer_t *output, long int num, char *base,
 		unsigned char flags, int wid, int prec)
 {
-	int size;
+	int sz;
 	char digit, pad = '0';
 	unsigned int ret = 1;
 
-	for (size = 0; *(base + size);)
-		size++;
+	for (sz = 0; *(base + sz);)
+		sz++;
 
-	if (num >= size || num <= -size)
-		ret += convert_sbase(output, num / size, base,
+	if (num >= sz || num <= -sz)
+		ret += convert_sbase(output, num / sz, base,
 				flags, wid - 1, prec - 1);
 
 	else
@@ -46,7 +46,7 @@ unsigned int convert_sbase(buffer_t *output, long int num, char *base,
 		}
 	}
 
-	digit = base[(num < 0 ? -1 : 1) * (num % size)];
+	digit = base[(num < 0 ? -1 : 1) * (num % sz)];
 	_memcpy(output, &digit, 1);
 
 	return (ret);
